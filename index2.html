@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			//1й способ через шаблонный строки
+			// let nameString = prompt('Напиши свое имя');
+			// let ageString = prompt('Напиши свой возраст');
+			// let hobbyString = prompt('Напиши свое хобби');
+
+			// console.log(`Имя пользователя: ${nameString}`);
+			// console.log(`Возраст пользователя: ${ageString}`);
+			// console.log(`Увлечения пользователя: ${hobbyString}`);
+
+			//2й способ через конкатенацию
+			let nameString = prompt('Напиши свое имя');
+			let ageString = prompt('Напиши свой возраст');
+			let hobbyString = prompt('Напиши свое хобби');
+
+			let toSumUp =
+				'Имя пользователя:' +
+				nameString +
+				' Возраст пользователя:' +
+				ageString +
+				' Хобби пользователя:' +
+				hobbyString;
+
+			console.log(toSumUp);
+		</script>
+	</body>
+</html>
