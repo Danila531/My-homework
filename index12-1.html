@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="uk">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Переадресація на сайт</title>
+	</head>
+	<body>
+		<button id="enterLink">Ввести посилання</button>
+		<button id="goToLink" disabled>Перейти на сайт</button>
+
+		<script>
+			let userLink = '';
+
+			const enterLinkButton = document.getElementById('enterLink');
+			const goToLinkButton = document.getElementById('goToLink');
+
+			enterLinkButton.addEventListener('click', function () {
+				userLink = prompt(
+					'Введіть посилання (включаючи https:// або http://):'
+				);
+				if (userLink) {
+					goToLinkButton.disabled = false;
+				}
+			});
+
+			goToLinkButton.addEventListener('click', function () {
+				if (userLink) {
+					window.location.href = userLink;
+				}
+			});
+		</script>
+	</body>
+</html>

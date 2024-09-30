@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			function Student(firstName, lastName, birthYear, grades = []) {
+				this.firstName = firstName;
+				this.lastName = lastName;
+				this.birthYear = birthYear;
+				this.grades = grades;
+				this.attendance = new Array(25).fill(null);
+
+				this.getAge = function () {
+					const currentYear = new Date().getFullYear();
+					return currentYear - this.birthYear;
+				};
+
+				this.getAverageGrade = function () {
+					if (this.grades.length === 0) return 0;
+					const sum = this.grades.reduce((a, b) => a + b, 0);
+					return sum / this.grades.length;
+				};
+
+				this.present = function () {
+					const index = this.attendance.indexOf(null);
+					if (index !== -1) {
+						this.attendance[index] = true;
+					}
+				};
+
+				this.absent = function () {
+					const index = this.attendance.indexOf(null);
+					if (index !== -1) {
+						this.attendance[index] = false;
+					}
+				};
+
+				this.getAttendanceRate = function () {
+					const attendedClasses = this.attendance.filter(
+						item => item === true
+					).length;
+					const totalClasses = this.attendance.filter(
+						item => item !== null
+					).length;
+					if (totalClasses === 0) return 0;
+					return attendedClasses / totalClasses;
+				};
+
+				this.summary = function () {
+					const averageGrade = this.getAverageGrade();
+					const attendanceRate = this.getAttendanceRate();
+
+					if (averageGrade > 90 && attendanceRate > 0.9) {
+						return 'Молодець!';
+					} else if (averageGrade > 90 || attendanceRate > 0.9) {
+						return 'Добре, але можна краще';
+					} else {
+						return 'Редиска!';
+					}
+				};
+			}
+
+			const student1 = new Student('Іван', 'Ковальчук', 2002, [95, 90, 85]);
+			const student2 = new Student('Марія', 'Сидоренко', 2003, [75, 80, 70]);
+			const student3 = new Student('Петро', 'Іванов', 2001, [92, 91, 93]);
+
+			student1.present();
+			student1.present();
+			student1.absent();
+			student2.present();
+			student2.absent();
+			student2.present();
+			student3.present();
+			student3.present();
+			student3.present();
+
+			console.log(
+				`${student1.firstName} ${
+					student1.lastName
+				}, Вік: ${student1.getAge()}, Середній бал: ${student1.getAverageGrade()}, Відвідуваність: ${student1.getAttendanceRate()}`
+			);
+			console.log(student1.summary());
+
+			console.log(
+				`${student2.firstName} ${
+					student2.lastName
+				}, Вік: ${student2.getAge()}, Середній бал: ${student2.getAverageGrade()}, Відвідуваність: ${student2.getAttendanceRate()}`
+			);
+			console.log(student2.summary());
+
+			console.log(
+				`${student3.firstName} ${
+					student3.lastName
+				}, Вік: ${student3.getAge()}, Середній бал: ${student3.getAverageGrade()}, Відвідуваність: ${student3.getAttendanceRate()}`
+			);
+			console.log(student3.summary());
+		</script>
+	</body>
+</html>

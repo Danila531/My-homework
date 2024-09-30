@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="uk">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Форма з валідацією</title>
+		<style>
+			.error {
+				color: red;
+				font-size: 12px;
+			}
+			input {
+				display: block;
+				margin-bottom: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<h2>Надсилання повідомлення</h2>
+
+		<form id="contactForm">
+			<label for="name">Ім'я:</label>
+			<input type="text" id="name" name="name" />
+			<span class="error" id="nameError"></span>
+
+			<label for="message">Повідомлення:</label>
+			<textarea id="message" name="message"></textarea>
+			<span class="error" id="messageError"></span>
+
+			<label for="phone">Номер телефону:</label>
+			<input type="text" id="phone" name="phone" />
+			<span class="error" id="phoneError"></span>
+
+			<label for="email">Email:</label>
+			<input type="text" id="email" name="email" />
+			<span class="error" id="emailError"></span>
+
+			<button type="submit">Надіслати</button>
+		</form>
+
+		<script>
+			const form = document.getElementById('contactForm');
+
+			form.addEventListener('submit', function (event) {
+				event.preventDefault();
+
+				const name = document.getElementById('name').value.trim();
+				const message = document.getElementById('message').value.trim();
+				const phone = document.getElementById('phone').value.trim();
+				const email = document.getElementById('email').value.trim();
+
+				let isValid = true;
+
+				document.getElementById('nameError').textContent = '';
+				document.getElementById('messageError').textContent = '';
+				document.getElementById('phoneError').textContent = '';
+				document.getElementById('emailError').textContent = '';
+
+				// Валідація ім'я
+				if (name === '') {
+					document.getElementById('nameError').textContent =
+						"Ім'я є обов'язковим";
+					isValid = false;
+				}
+
+				// Валідація повідомлення
+				if (message.length < 5) {
+					document.getElementById('messageError').textContent =
+						'Повідомлення повинно містити не менше 5 символів';
+					isValid = false;
+				}
+
+				// Валідація номера телефону
+				const phoneRegex = /^\+380\d{9}$/;
+				if (!phoneRegex.test(phone)) {
+					document.getElementById('phoneError').textContent =
+						'Номер телефону повинен починатися з +380 і містити 9 цифр після цього';
+					isValid = false;
+				}
+
+				// Валідація email
+				const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+				if (!emailRegex.test(email)) {
+					document.getElementById('emailError').textContent =
+						'Email повинен містити @ та крапку';
+					isValid = false;
+				}
+
+				if (isValid) {
+					console.log({
+						name,
+						message,
+						phone,
+						email,
+					});
+				}
+			});
+		</script>
+	</body>
+</html>
